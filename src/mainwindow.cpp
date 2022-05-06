@@ -39,9 +39,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Allocate memory for selectPool
     myPool = new QVector<poolPolicy>;
-    if(!isFile("Config,ini"))
-        InitializeCfg("Config.ini");
-    LoadConfig("Config.ini");
+    if(!isFile("./Config.ini"))
+        InitializeCfg("./Config.ini");
+    LoadConfig("./Config.ini");
 
 
     QObject::connect(ui->actionAbout,&QAction::triggered,this,&MainWindow::about_clicked);
@@ -56,11 +56,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::InitializeCfg(QString str)
 {
-    Config *cfg = new Config(str);
-    cfg->Set("Config","poolSize","2");
-    cfg->Set("Pool_0","numPool","1,2,3,4");
-    cfg->Set("Pool_1","stuID","20220506");
-    cfg->Set("Pool_1","numPool","5,6,7,8,9,10");
+    qDebug()<<"Initialize Config.ini";
+    Config cfg = Config(str);
+    cfg.Set("Config","poolSize",QVariant("2"));
+    cfg.Set("Pool_0","numPool",QVariant("1,2,3,4"));
+    cfg.Set("Pool_1","stuID",QVariant("20220506"));
+    cfg.Set("Pool_1","numPool",QVariant("5,6,7,8,9,10"));
 }
 
 
@@ -115,11 +116,12 @@ QString MainWindow::getRandomNum(QVector<QString> &vector)
     return rdm;
 }
 
-void MainWindow::showNum(QString num, const QString &a, const QString &b)
+void MainWindow::showNum(const int &num, const int &a, const int &b)
 {
     if(num<a||num>b)
     {
-        QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("序号范围非法"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        qDebug()<<"a="<<a<<";b="<<b;
+        QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("序号范围非法2"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         return;
     }
     //    bool flag = false;
@@ -133,7 +135,7 @@ void MainWindow::showNum(QString num, const QString &a, const QString &b)
 
     //        if(flag&&!(i-iNum))
     //        {
-    ui->number->setText(num);
+    ui->number->setText(QString::number(num));
     //            break;
     //        }
     //    }
@@ -142,6 +144,8 @@ void MainWindow::showNum(QString num, const QString &a, const QString &b)
 
 void MainWindow::on_select_clicked()
 {
+    qDebug()<<"Btn clicked!";
+    qDebug()<<"stuID="<<ui->stuNum->text();
     if(ui->stuNum->text().isEmpty())
     {
         QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("未指定学号"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
@@ -153,16 +157,17 @@ void MainWindow::on_select_clicked()
         QMessageBox::warning(this, QStringLiteral("警告"), QStringLiteral("序号范围非法"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         return;
     }
-    QString stuID = ui->StuNo->text();
+    QString stuID = ui->stuNum->text();
     QVector<poolPolicy>::Iterator it=myPool->end();
     for(--it;it!=myPool->begin();it--)
     {
         if(it->stuID==stuID)
             break;
     }
+    qDebug()<<"stuID="<<it->stuID;
     QString num=getRandomNum(it->numPool);
     qDebug()<<"num="<<num;
-    showNum(num,ui->rangeStart->text(),ui->rangeEnd->text());
+    showNum(num.toInt(),ui->rangeStart->text().toInt(),ui->rangeEnd->text().toInt());
 }
 
 void MainWindow::about_clicked()

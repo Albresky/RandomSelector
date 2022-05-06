@@ -24,7 +24,7 @@ public:
     ~MainWindow();
     void LoadConfig(QString str);
     QString getRandomNum(QVector<QString> &vector);
-    void showNum(QString num, const QString &a, const QString &b);
+    void showNum(const int &num, const int &a, const int &b);
     void InitializeCfg(QString str);
 private slots:
     void on_select_clicked();

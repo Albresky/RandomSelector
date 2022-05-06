@@ -112,11 +112,6 @@ bool storeIni(const QStringList &fileNameList,QString& targetDir)
 
 bool createFile(const QString& fileName)
 {
-    if(isFile(fileName))
-    {
-        qDebug()<<"file exixts! skip create";
-        return false;
-    }
     QFile qfile(fileName);
     if(qfile.open(QIODevice::ReadWrite))
     {
