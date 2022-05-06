@@ -1,9 +1,10 @@
 # RandomSelector
-A random number seletor, support specialized range and Identity with a config file.
+A random number seletor, supporting specialized range and preseted identity.
 
 
 # Instruction
 - If you want to specialize the number-pool, modifying the config file (`config.ini`)  is required.
+- The config file will be automatically generated after the first launch of this program.
 - About config file (`config.ini`)
   - [Config]
     - **poolSize = `the number of [Pool_i]`**
