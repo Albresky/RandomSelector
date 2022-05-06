@@ -1,2 +1,19 @@
 # RandomSelector
 A random number seletor, support specialized range and Identity with a config file.
+
+
+# Instruction
+- If you want to specialize the number-pool, modifying the config file (`config.ini`)  is required.
+- About config file (`config.ini`)
+  - [Config]
+    - **poolSize = `the number of [Pool_i]`**
+  - `[Pool_0]`
+    - This node is essential, and the node name is not allowed to modify. 
+    - In this node, `numPool` is indispensable.
+    - In this node, `stuID` is no more required.
+  - [Pool_1]
+    - In this node, both `stuID` and `numPool` are indispensable.
+  - [Pool_2]
+  - . . . 
+  - [Pool_i]
+    
