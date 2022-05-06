@@ -17,4 +17,8 @@ A random number seletor, supporting specialized range and preseted identity.
   - [Pool_2]
   - . . . 
   - [Pool_i]
+  
+
+# About
+ IF YOU LIKE THIS PROGRAM, :star: **STAR** IT!
     
